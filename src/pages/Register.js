@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import Logo from "../components/Logo";
 import Wrapper from "../assets/wrappers/RegisterPage";
 import FormRow from "../components/FormRow";
-import Alert from "../components/Alert";
-import { useAppContext } from "../context/appContext";
 
 const initialState = {
   name: "",
@@ -14,15 +12,16 @@ const initialState = {
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
-  const { isLoading, showAlert } = useAppContext();
 
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({ ...values, [e.target.name]: e.target.value });
+    console.log(...values);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+
+    console.log(values);
   };
 
   const toggleMember = () => {
@@ -33,13 +32,13 @@ const Register = () => {
       <form className="form" onSubmit={onSubmit}>
         <Logo />
         <h3>{values.isMember ? "Login" : "Register"}</h3>
-        {showAlert && <Alert />}
+        {/* {showAlert && <Alert />} */}
         {/* name field */}
         {!values.isMember && (
           <FormRow
             type="text"
             name="name"
-            // value={values.name}
+            value={values.name}
             onChange={handleChange}
             labelText="name"
           />
